@@ -27,7 +27,7 @@ class Currency extends Component {
     render() {
         return (
             <div>
-                Currency:
+                <h2>Currency:</h2>
                 <ConverterForm type={DESCRIPTION.name} values={DESCRIPTION.values}/>
             </div>
         );

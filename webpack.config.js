@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    devtool: 'inline-source-map',
     entry: glob.sync('./src/**/*.{js,jsx}'),
     output: {
       path: path.join(__dirname, 'dist'),

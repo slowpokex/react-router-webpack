@@ -21,7 +21,7 @@ const ReactReduxApp = (props) => (
 ReactDOM.render(<ReactReduxApp store={STORE}/>, div);
 
 module.hot && module.hot.accept('/', () => {
-  console.log('The application was updated!')
+  console.log('The application was updated!');
+  registerServiceWorker();
 });
 
-registerServiceWorker();

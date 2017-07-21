@@ -11,28 +11,47 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const Links = () => (
-    <nav>
-        <NavLink exact to='/'>Currency</NavLink>
-        <NavLink to='/length'>Length</NavLink>
-        <NavLink to='/volume'>Volume</NavLink>
-        <NavLink to='/weight'>Weight</NavLink>
+  <div>
+    <nav className="navbar navbar-inverse navbar-fixed-top">
+      <div className="container">
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+          <a className="navbar-brand" href="#">Converter</a>
+        </div>
+        <div id="navbar" className="collapse navbar-collapse">
+          <ul className="nav navbar-nav">
+            <li><NavLink exact to='/' activeClassName="active">Currency</NavLink></li>
+            <li><NavLink to='/length' activeClassName="active">Length</NavLink></li>
+            <li><NavLink to='/volume' activeClassName="active">Volume</NavLink></li>
+            <li><NavLink to='/weight' activeClassName="active">Weight</NavLink></li>
+          </ul>
+        </div>
+      </div>
     </nav>
+  </div>
 );
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
+      <div>
+        <div>
           <span>Converter for values</span>
         </div>
         <BrowserRouter>
             <div>
-                <Links/>
+              <Links/>
+              <div className="container" style={{marginTop: 40 + 'px'}}>
                 <Route exact path='/' component={Currency}/>
                 <Route path='/length' component={Length}/>
                 <Route path='/volume' component={Volume}/>
                 <Route path='/weight' component={Weight}/>
+              </div>
             </div>
         </BrowserRouter>
       </div>
