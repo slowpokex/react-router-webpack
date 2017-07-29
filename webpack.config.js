@@ -17,7 +17,22 @@ module.exports = {
       publicPath: '/',
       contentBase: path.join(__dirname, 'dist'),
       compress: true,
-      port: 9000
+      port: 9000,
+      proxy: {
+        // Catch all requests
+        '/**': {
+          target: '/',
+          secure: false,
+          bypass: (req) => {
+                    if(req.path.indexOf('/img/') !== -1 || req.path.indexOf('/public/') !== -1){
+                       return '/'
+                    }
+                    if (req.headers.accept.indexOf('html') !== -1) {
+                       return '/';
+                    }
+                }
+            }
+        }
     },
     plugins: [
       new webpack.NoEmitOnErrorsPlugin(),

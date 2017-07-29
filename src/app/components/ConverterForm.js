@@ -1,43 +1,66 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import Current from '../actions/Current';
+
+const MAP_STATE_TO_PROPS = (state) => {
+    return {
+        current : state.current
+    };
+};
+
+const MAP_DISPATCH_TO_PROPS = (dispatch) => {
+    return {
+        changeReverse: (value) => dispatch(Current.getSwitchAction(value)),
+        changeFirst: (value) => dispatch(Current.getFirstValueAction(value)),
+        changeSecond: (value) => dispatch(Current.getSecondValueAction(value)),
+    };
+};
 
 class ConverterForm extends Component {
-
     constructor() {
         super();
-        this.state = {
-            isReverse: false
-        };
+        this.firstSelector = null;
+        this.secondSelector = null;
         this.changeReverse = this.changeReverse.bind(this);
+        this.changeFirstValue = this.changeFirstValue.bind(this);
+        this.changeSecondValue = this.changeSecondValue.bind(this);
     }
 
     changeReverse() {
-        this.setState({
-            isReverse: !this.state.isReverse
-        });
+        this.props.changeReverse(!this.props.current.onReverse);
     }
 
-    renderSelect(elements) {
-        return (<select>
-                    { elements.map((item) => (
-                        <option key={item.id} value={item.value}>
-                            {item.name}
-                        </option>))
-                    }
+    changeFirstValue(e){
+        this.props.changeFirst(e.target.value);
+    }
+
+    changeSecondValue(e){
+        this.props.changeSecond(e.target.value);
+    }
+/*
+    changeSelectors(link){
+
+    }*/
+
+    renderSelect(elements, link) {
+        return (<select ref={(select) => link = select}>
+                    { elements.map((item) => (<option key={item.id} value={item.value}>{item.name}</option>)) }
                 </select>);
     }
 
     render() {
         return (
             <div>
-               <input disabled={this.state.isReverse}/>
-               <button className="reverse-button" onClick={this.changeReverse}>{!this.state.isReverse ? '->' : '<-'}</button>
-               <input disabled={!this.state.isReverse}/>
-               {this.renderSelect(this.props.values)}
-               {this.renderSelect(this.props.values)}
+               <input disabled={this.props.current.onReverse}
+                      onChange={this.changeFirstValue}/>
+               <button className='reverse-button' onClick={this.changeReverse}>{!this.props.current.onReverse ? '->' : '<-'}</button>
+               <input disabled={!this.props.current.onReverse}
+                      onChange={this.changeSecondValue}/>
+               {this.renderSelect(this.props.values, this.firstSelector)}
+               {this.renderSelect(this.props.values, this.secondSelector)}
             </div>
         );
     }
 }
 
-export default ConverterForm;
+export default connect(MAP_STATE_TO_PROPS, MAP_DISPATCH_TO_PROPS)(ConverterForm);

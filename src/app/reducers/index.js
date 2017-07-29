@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
 const DEFAULT_PREVIOUS = [];
-const DEFAULT_CURRENT_VALUE = {};
+const DEFAULT_CURRENT_VALUE = {
+    onReverse: false,
+    first: 0,
+    second: 0
+};
 
-function currency(curr = DEFAULT_CURRENT_VALUE, action) {
-
-}
+//function currency(curr = DEFAULT_CURRENT_VALUE, action) {}
 
 export function previous(state = DEFAULT_PREVIOUS, action) {
     switch (action.type) {
@@ -14,7 +16,6 @@ export function previous(state = DEFAULT_PREVIOUS, action) {
         case 'CLEAR_ALL_RECENT' : return DEFAULT_PREVIOUS;
         default: return state;
     }
-
 }
 
 export function current(curr = DEFAULT_CURRENT_VALUE, action) {
